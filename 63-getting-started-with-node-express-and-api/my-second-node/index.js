@@ -16,13 +16,27 @@ const users = [
 ];
 
 app.get('/users', (req, res) => {
-	res.send(users);
+	const search = req.query.search;
+	if (search) {
+		const searchResult = users.filter((user) => user.name.toLowerCase().includes(search));
+		res.send(searchResult);
+	} else {
+		res.send(users);
+	}
 });
 
 app.get('/users/:id', (req, res) => {
 	const id = req.params.id;
 	const user = users[id];
 	res.send(user);
+});
+
+app.get('/fruits', (req, res) => {
+	res.send(['mango', 'oranges', 'banana', 'apple']);
+});
+
+app.get('/fruits/mangoes/fazli', (req, res) => {
+	res.send('Yummy Yummy tok marka fazli');
 });
 
 app.listen(port, () => {
