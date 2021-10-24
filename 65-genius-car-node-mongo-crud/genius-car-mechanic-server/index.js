@@ -1,9 +1,16 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+const objectId = require('mongodb').objectId;
+
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const port = 5000;
+
+//middleware
+app.use(cors());
+app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.b4chv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
@@ -16,6 +23,22 @@ async function run() {
 
 		const database = client.db('geniusMechanic');
 		const servicesCollection = database.collection('services');
+
+		// get API
+		app.get('/services', async (req, res) => {
+			const cursor = servicesCollection.find({});
+			const services = await cursor.toArray();
+			res.send(services);
+		});
+
+		// get single service
+		app.get('/services/:id', async (req, res) => {
+			const id = req.params.id;
+			console.log('getting specific service', id);
+			const query = { _id: objectId(id) };
+			const survice = await servicesCollection.findOne(query);
+			res.json(service);
+		});
 
 		// post API
 		app.post('/services', async (req, res) => {
@@ -31,6 +54,14 @@ async function run() {
 			// };
 			const result = await servicesCollection.insertOne(service);
 			console.log(result);
+			res.json(result);
+		});
+
+		// DELETE API
+		app.delete('/services/:id', async (req, res) => {
+			const id = req.params.id;
+			const query = { _id: objectId(id) };
+			const result = await servicesCollection.deleteOne(query);
 			res.json(result);
 		});
 	} finally {
