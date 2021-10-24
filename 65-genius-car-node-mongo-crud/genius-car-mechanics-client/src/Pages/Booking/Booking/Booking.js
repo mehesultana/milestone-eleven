@@ -9,7 +9,7 @@ const Booking = () => {
 		fetch(`http://localhost:5000/services/${serviceId}`)
 			.then((res) => res.json())
 			.then((data) => setService(data));
-	}, []);
+	}, [serviceId]);
 
 	return (
 		<div>
