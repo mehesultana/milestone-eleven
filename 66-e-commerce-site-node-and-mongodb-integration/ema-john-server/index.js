@@ -13,7 +13,7 @@ app.use(express.json());
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.b4chv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-console.log(uri);
+// console.log(uri);
 
 async function run() {
 	try {
@@ -25,8 +25,12 @@ async function run() {
 		//get products API
 		app.get('/products', async (req, res) => {
 			const cursor = productCollection.find({});
-			const products = await cursor.limit(10).toArray();
-			res.send(products);
+			const products = await cursor.toArray();
+			const count = await cursor.count();
+			res.send({
+				count,
+				products,
+			});
 		});
 	} finally {
 		// await client.close()
