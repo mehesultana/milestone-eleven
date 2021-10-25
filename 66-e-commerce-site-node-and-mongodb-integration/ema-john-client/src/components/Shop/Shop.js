@@ -12,7 +12,7 @@ const Shop = () => {
 
 	useEffect(() => {
 		// console.log('product API called');
-		fetch('./products.JSON')
+		fetch('http://localhost:5000/products')
 			.then((res) => res.json())
 			.then((data) => {
 				setProducts(data);
