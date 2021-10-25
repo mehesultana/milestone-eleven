@@ -18,7 +18,16 @@ console.log(uri);
 async function run() {
 	try {
 		await client.connect();
-		console.log('database connected');
+		// console.log('database connected');
+		const database = client.db('onlineShop');
+		const productCollection = database.collection('products');
+
+		//get products API
+		app.get('/products', async (req, res) => {
+			const cursor = productCollection.find({});
+			const products = await cursor.toArray();
+			res.send(products);
+		});
 	} finally {
 		// await client.close()
 	}
