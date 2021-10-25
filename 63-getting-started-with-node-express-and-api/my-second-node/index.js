@@ -3,6 +3,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
 const port = 5000;
 
@@ -29,6 +30,13 @@ app.get('/users', (req, res) => {
 	}
 });
 
+//app.method
+app.post('/users', (res, req) => {
+	console.log('hitting the post');
+	res.send('inside post');
+});
+
+//dynamic api
 app.get('/users/:id', (req, res) => {
 	const id = req.params.id;
 	const user = users[id];
