@@ -3,11 +3,12 @@ import './Shop.css';
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
 import { addToDb, getStoredCart } from '../../utilities/fakedb';
+import useCart from '../../hooks/useCart';
 import { Link } from 'react-router-dom';
 
 const Shop = () => {
 	const [products, setProducts] = useState([]);
-	const [cart, setCart] = useState([]);
+	const [cart, setCart] = useCart();
 	const [page, setPage] = useState(0);
 	const [pageCount, setPageCount] = useState(0);
 	const [displayProducts, setDisplayProducts] = useState([]);
