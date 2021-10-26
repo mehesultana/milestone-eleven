@@ -1,10 +1,11 @@
-const os = require('os');
-const fs = require('fs');
-// console.log('os version', os.version());
-// console.log('os', os.arch());
+const express = require('express');
+const app = express();
+const port = 7000;
 
-// fs.writeFileSync('hello.txt', 'I am writting from node');
-// fs.appendFileSync('hello.txt', '\n more text ');
+app.get('/', (req, res) => {
+	res.send('Hello World!');
+});
 
-const content = fs.readFileSync('hello.txt');
-console.log(content.toString());
+app.listen(port, () => {
+	console.log(`Example app listening at http://localhost:${port}`);
+});
