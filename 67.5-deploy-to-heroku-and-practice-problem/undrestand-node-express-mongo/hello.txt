@@ -1,2 +1,2 @@
-I am writting from node/n more text 
+I am writting from node. more text 
  more text 
