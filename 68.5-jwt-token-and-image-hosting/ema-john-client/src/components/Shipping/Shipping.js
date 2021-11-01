@@ -16,7 +16,7 @@ const Shipping = () => {
 		const savedCart = getStoredCart();
 		data.order = savedCart;
 
-		fetch('http://localhost:4000/orders', {
+		fetch('http://5000/orders', {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json',

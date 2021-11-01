@@ -7,7 +7,7 @@ const useCart = () => {
 	useEffect(() => {
 		const savedCart = getStoredCart();
 		const keys = Object.keys(savedCart);
-		fetch('http://localhost:4000/products/byKeys', {
+		fetch('http://5000/products/byKeys', {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json',
